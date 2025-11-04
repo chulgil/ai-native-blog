@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
+import { AuthorProfile } from 'app/components/author-profile'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
+import { getAuthor } from 'app/config/authors'
 
 export async function generateStaticParams() {
   let posts = getBlogPosts()
@@ -22,6 +24,7 @@ export function generateMetadata({ params }) {
     publishedAt: publishedTime,
     summary: description,
     image,
+    author: authorId,
   } = post.metadata
   let ogImage = image
     ? image
@@ -58,6 +61,8 @@ export default function Blog({ params }) {
     notFound()
   }
 
+  let author = getAuthor(post.metadata.author)
+
   return (
     <section>
       <script
@@ -77,7 +82,7 @@ export default function Blog({ params }) {
             url: `${baseUrl}/blog/${post.slug}`,
             author: {
               '@type': 'Person',
-              name: 'My Portfolio',
+              name: author.name,
             },
           }),
         }}
@@ -93,6 +98,7 @@ export default function Blog({ params }) {
       <article className="prose">
         <CustomMDX source={post.content} />
       </article>
+      <AuthorProfile author={author} />
     </section>
   )
 }
