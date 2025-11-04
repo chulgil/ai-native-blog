@@ -95,8 +95,9 @@ export default function Blog({ params }) {
         <CustomMDX source={post.content} />
       </article>
       <AuthorProfile
-        name="My Portfolio"
-        bio="Full-stack developer passionate about building AI-native applications"
+        name="John Doe"
+        bio="A passionate writer and developer."
+        avatarUrl="/images/avatar.png"
       />
     </section>
   )

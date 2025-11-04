@@ -1,18 +1,18 @@
 import Image from 'next/image'
 
 interface AuthorProfileProps {
-  avatar?: string
   name: string
   bio: string
+  avatarUrl?: string
 }
 
-export function AuthorProfile({ avatar, name, bio }: AuthorProfileProps) {
+export function AuthorProfile({ name, bio, avatarUrl }: AuthorProfileProps) {
   return (
     <div className="flex items-center gap-4 py-8 border-t border-b border-neutral-200 dark:border-neutral-700">
-      {avatar && (
+      {avatarUrl && (
         <div className="flex-shrink-0">
           <Image
-            src={avatar}
+            src={avatarUrl}
             alt={name}
             width={64}
             height={64}
